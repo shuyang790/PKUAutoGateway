@@ -14,6 +14,8 @@ import datetime
 
 url = "https://its.pku.edu.cn/cas/ITSClient"
 
+timeInterval = 20
+
 proxies = {
     'http': '',
     'https': '',
@@ -135,7 +137,7 @@ def main():
             print ("Already connected to network with IP address {}".format(
                 getCurrentIP()
             ))
-        time.sleep(20)
+        time.sleep(timeInterval)
 
 if __name__ == "__main__":
     main()
