@@ -11,6 +11,7 @@ import subprocess
 import getpass
 import time
 import datetime
+import sys
 
 url = "https://its.pku.edu.cn/cas/ITSClient"
 
@@ -35,6 +36,8 @@ headersTemplate = {
         "password": password,
 }
 
+sys.stdout = open("./PKUAutoGateway.log", "w")
+
 
 def checkNetwork(url='http://www.baidu.com/', timeout=1):
     try:
@@ -43,10 +46,12 @@ def checkNetwork(url='http://www.baidu.com/', timeout=1):
         req.raise_for_status()
         return True
     except requests.HTTPError as e:
+        print (datetime.datetime.now())
         print ("Checking internet connection failed, status code {0}.".format(
             e.response.status_code
         ))
     except requests.ConnectionError:
+        print (datetime.datetime.now())
         print ("No internet connection available.")
     except e:
         return False
@@ -136,6 +141,7 @@ def main():
                 pass
         elif printNow:
             printNow = False
+            print (datetime.datetime.now())
             print ("Already connected to network with IP address {}".format(
                 getCurrentIP()
             ))
