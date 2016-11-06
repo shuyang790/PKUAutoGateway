@@ -48,6 +48,8 @@ def checkNetwork(url='http://www.baidu.com/', timeout=1):
         ))
     except requests.ConnectionError:
         print ("No internet connection available.")
+    except e:
+        return False
     return False
 
 
