@@ -39,6 +39,11 @@ headersTemplate = {
 sys.stdout = open("./PKUAutoGateway.log", "w")
 
 
+def myPrint(content):
+    print (content)
+    sys.stdout.flush()
+
+
 def checkNetwork(url='http://www.baidu.com/', timeout=1):
     try:
         req = requests.head(url, timeout=timeout, proxies=proxies)
@@ -46,13 +51,13 @@ def checkNetwork(url='http://www.baidu.com/', timeout=1):
         req.raise_for_status()
         return True
     except requests.HTTPError as e:
-        print (datetime.datetime.now())
-        print ("Checking internet connection failed, status code {0}.".format(
+        myPrint(datetime.datetime.now())
+        myPrint("Checking internet connection failed, status code {0}.".format(
             e.response.status_code
         ))
     except requests.ConnectionError:
-        print (datetime.datetime.now())
-        print ("No internet connection available.")
+        myPrint(datetime.datetime.now())
+        myPrint("No internet connection available.")
     except e:
         return False
     return False
@@ -74,8 +79,8 @@ def getCurrentIP(type=4):
 
 
 def printJSON(obj):
-    print (datetime.datetime.now())
-    print (json.dumps(
+    myPrint(datetime.datetime.now())
+    myPrint(json.dumps(
         obj,
         indent=4,
         separators=(',', ': '),
@@ -141,8 +146,8 @@ def main():
                 pass
         elif printNow:
             printNow = False
-            print (datetime.datetime.now())
-            print ("Already connected to network with IP address {}".format(
+            myPrint(datetime.datetime.now())
+            myPrint("Already connected to network with IP address {}".format(
                 getCurrentIP()
             ))
         time.sleep(timeInterval)
